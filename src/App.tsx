@@ -1,25 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
+import GlobalStats from './components/GlobalStats';
+import Leaderboard from './components/Leaderboard';
 import logo from './logo.svg';
-import './App.css';
 
 function App() {
+  const [isLeaderboard, setIsLeaderboard] = useState(true);
+  let component;
+
+  if (isLeaderboard) {
+    component = <Leaderboard/>
+  } else {
+    component = <GlobalStats/>
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="h-screen bg-slate-900 py-6 px-6">
+      <div className="btn-group">
+        <button className={`btn ${isLeaderboard ? 'btn-active' : ''}`} onClick={() => setIsLeaderboard(true)}>Leaderboards</button>
+        <button className={`btn ${isLeaderboard ? '' : 'btn-active'}`} onClick={() => setIsLeaderboard(false)}>General Stats</button>
+      </div>
+      {component}
     </div>
+    
   );
 }
 
